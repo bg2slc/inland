@@ -1,9 +1,8 @@
 #!/bin/bash
 
-####createMakefile
-#codesnippets used for creating Makefiles.
 createMakefile()    {
     touch Makefile;
+###### CREATE HEADER FOR MAKEFILE
     cat << EOF > Makefile
 ####################################
 # Makefile by Inland Make-maker    #
@@ -11,6 +10,7 @@ createMakefile()    {
 ####################################
 EOF
     if [[ "$ext" == "cpp" ]]; then
+###### CREATE BODY WHEN SOURCE FILE IS .CPP
         echo "
 all:
     compile
@@ -26,6 +26,7 @@ run:
     ./$1.bin" >> Makefile
         echo "Makefile created for $1.$2"
     elif [[ "$ext" == "cs" ]]; then
+###### CREATE BODY WHEN SOURCE FILE IS .CS
         echo "
 all: run
 
@@ -43,8 +44,21 @@ run: $1.bin
 
 
 
-####MAIN FUNCTION
-echo "INLAND EMPIRE: No, NO!!!\n"
+###### MAIN FUNCTION
+
+OPTION=$((RANDOM % 4))
+case $OPTION in
+    1) echo "   INLAND EMPIRE: This is a man with a lot of past, but little present. And almost no future"
+        ;;
+    2) echo "   VOLITION: It's better to know you're being played than to be played without knowing it, is it not?"
+        ;;
+    3) echo "   THE DESERTER: Men without ideals are only animals."
+        ;;
+    4) echo "   VOLITION: This is somewhere to be. This is all you have, but it's still something. Streets and sodium lights. The sky, the world. You're still alive."
+        ;;
+esac
+
+echo ""
 
 if [[ "$1" == "" ]]; then
     echo -e "No file selected. Exiting..."
