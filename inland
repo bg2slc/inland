@@ -1,31 +1,66 @@
 #!/bin/bash
 
+####createMakefile
+#codesnippets used for creating Makefiles.
 createMakefile()    {
     touch Makefile;
-    echo "##Makefile for $2, created by inland
-    ##
+    cat << EOF > Makefile
+####################################
+# Makefile by Inland Make-maker    #
+# https://github.com/bg2slc/inland #
+####################################
+EOF
+    if [[ "$ext" == "cpp" ]]; then
+        echo "
+all:
+    compile
+    run
 
-    all:
-        g++ $1.$2 -g -o $1.bin
-        ./$1.bin
-    compile:
-        g++ $1.$2 -g -o $1.bin
-    run:
-        ./$1.bin " >> Makefile
-    echo "Makefile created for $1.$2"
-    
+compile:
+    g++ $1.$2 -g -o $1.bin
+
+clean:
+    @rm -f $1.bin
+
+run:
+    ./$1.bin" >> Makefile
+        echo "Makefile created for $1.$2"
+    elif [[ "$ext" == "cs" ]]; then
+        echo "
+all: run
+
+$1.bin: $1.$2
+#   @mcs -out:$1.bin $1.$2 -r:System.Windows.Forms.dll,System.Drawing.dll
+    @mcs -out:$1.bin $1.$2
+
+clean:
+    @rm -f $1.bin
+
+run: $1.bin
+    @mono $1.bin" >> Makefile
+    fi
 }
+
+
+
 ####MAIN FUNCTION
 echo "INLAND EMPIRE: No, NO!!!\n"
+
+if [[ "$1" == "" ]]; then
+    echo -e "No file selected. Exiting..."
+    exit
+fi
+
 file=${1%.*}
 ext=${1##*.}
 
+
 read -p "Makefile for $ext, binary will be called $file.bin. Continue? (Y/n): "
 if [[ "$REPLY" == "" || "$REPLY" == "Y"|| "$REPLY" == "y" ]]; then
-    echo -e "\nConfirmed. Generating..."
+    echo -e "Confirmed. Generating..."
     createMakefile $file $ext
 else
-    echo -e "\nExiting..."
+    echo -e "Exiting..."
 fi
 
 
