@@ -1,0 +1,31 @@
+#!/bin/bash
+
+createMakefile()    {
+    touch Makefile;
+    echo "##Makefile for $2, created by inland
+    ##
+
+    all:
+        g++ $1.$2 -g -o $1.bin
+        ./$1.bin
+    compile:
+        g++ $1.$2 -g -o $1.bin
+    run:
+        ./$1.bin " >> Makefile
+    echo "Makefile created for $1.$2"
+    
+}
+####MAIN FUNCTION
+echo "INLAND EMPIRE: No, NO!!!\n"
+file=${1%.*}
+ext=${1##*.}
+
+read -p "Makefile for $ext, binary will be called $file.bin. Continue? (Y/n): "
+if [[ "$REPLY" == "" || "$REPLY" == "Y"|| "$REPLY" == "y" ]]; then
+    echo -e "\nConfirmed. Generating..."
+    createMakefile $file $ext
+else
+    echo -e "\nExiting..."
+fi
+
+
