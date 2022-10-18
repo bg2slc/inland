@@ -51,25 +51,19 @@ run: $1.bin
 
 ###### MAIN FUNCTION
 
-OPTION=$((RANDOM % 6))
-case $OPTION in
-    0) echo "   TRUE LOVE IS POSSIBLE, ONLY IN THE NEXT WORLD, FOR NEW PEOPLE. IT'S TOO LATE FOR US. WREAK HAVOC ON THE MIDDLE CLASS."
-        ;;
-    1) echo "   INLAND EMPIRE: This is a man with a lot of past, but little present. And almost no future"
-        ;;
-    2) echo "   VOLITION: It's better to know you're being played than to be played without knowing it, is it not?"
-        ;;
-    3) echo "   THE DESERTER: Men without ideals are only animals."
-        ;;
-    4) echo "   VOLITION: This is somewhere to be. This is all you have, but it's still something. Streets and sodium lights. The sky, the world. You're still alive."
-        ;;
-    5) echo "   INLAND EMPIRE: WHERE DA HOOD, WHERE DA HOOD, WHERE DA HOOD AT."
-       echo "   SHIVERS: GOT A BROTHER IN THE CUT, WHERE THE WOOD AT."
-        ;;
-esac
-
+OPTION=$((RANDOM % 7))
+quotes=(
+"   TRUE LOVE IS POSSIBLE, ONLY IN THE NEXT WORLD, FOR NEW PEOPLE. IT'S TOO LATE FOR US. WREAK HAVOC ON THE MIDDLE CLASS."
+"   INLAND EMPIRE: This is a man with a lot of past, but little present. And almost no future"
+"   VOLITION: It's better to know you're being played than to be played without knowing it, is it not?"
+"   THE DESERTER: Men without ideals are only animals."
+"   VOLITION: This is somewhere to be. This is all you have, but it's still something. Streets and sodium lights. The sky, the world. You're still alive."
+"   INLAND EMPIRE: WHERE DA HOOD, WHERE DA HOOD, WHERE DA HOOD AT.\n
+   SHIVERS: GOT A BROTHER IN THE CUT, WHERE THE WOOD AT."
+"   HALF-LIGHT: Never forget: The whole world's a wooden house and you're a goddamn flamethrower."
+)
+echo -e "${quotes[$OPTION]}"
 echo ""
-
 if [[ "$1" == "" ]]; then
     echo -e "No file selected. Exiting..."
     exit
