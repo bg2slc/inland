@@ -1,13 +1,18 @@
 #!/bin/bash
 
+###### createMakefile [filename_string $1] [extension_string $2]
 createMakefile()    {
     touch Makefile;
 ###### CREATE HEADER FOR MAKEFILE
     cat << EOF > Makefile
-####################################
-# Makefile by Inland Make-maker    #
-# https://github.com/bg2slc/inland #
-####################################
+################################### #
+# Makefile by Inland Make-maker     #
+# https://github.com/bg2slc/inland  #
+# DISCLAIMER:                       #
+# This makefile is made by a simple #
+# script, and should only be        #
+# trusted with simple projects.     #
+#####################################
 EOF
     if [[ "$ext" == "cpp" ]]; then
 ###### CREATE BODY WHEN SOURCE FILE IS .CPP
@@ -46,8 +51,10 @@ run: $1.bin
 
 ###### MAIN FUNCTION
 
-OPTION=$((RANDOM % 4))
+OPTION=$((RANDOM % 6))
 case $OPTION in
+    0) echo "   TRUE LOVE IS POSSIBLE, ONLY IN THE NEXT WORLD, FOR NEW PEOPLE. IT'S TOO LATE FOR US. WREAK HAVOC ON THE MIDDLE CLASS."
+        ;;
     1) echo "   INLAND EMPIRE: This is a man with a lot of past, but little present. And almost no future"
         ;;
     2) echo "   VOLITION: It's better to know you're being played than to be played without knowing it, is it not?"
@@ -55,6 +62,9 @@ case $OPTION in
     3) echo "   THE DESERTER: Men without ideals are only animals."
         ;;
     4) echo "   VOLITION: This is somewhere to be. This is all you have, but it's still something. Streets and sodium lights. The sky, the world. You're still alive."
+        ;;
+    5) echo "   INLAND EMPIRE: WHERE DA HOOD, WHERE DA HOOD, WHERE DA HOOD AT."
+       echo "   SHIVERS: GOT A BROTHER IN THE CUT, WHERE THE WOOD AT."
         ;;
 esac
 
