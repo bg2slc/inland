@@ -16,19 +16,19 @@ createMakefile()    {
 EOF
     if [[ "$ext" == "cpp" ]]; then
 ###### CREATE BODY WHEN SOURCE FILE IS .CPP
-        echo "
+        echo -e "
 all:
-    compile
-    run
+\tcompile
+\trun
 
 compile:
-    g++ $1.$2 -g -o $1.bin
+\tg++ $1.$2 -g -o $1.bin
 
 clean:
-    @rm -f $1.bin
+\t@rm -f $1.bin
 
 run:
-    ./$1.bin" >> Makefile
+\t./$1.bin" >> Makefile
         echo "Makefile created for $1.$2"
     elif [[ "$ext" == "cs" ]]; then
 ###### CREATE BODY WHEN SOURCE FILE IS .CS
@@ -36,14 +36,14 @@ run:
 all: run
 
 $1.bin: $1.$2
-#   @mcs -out:$1.bin $1.$2 -r:System.Windows.Forms.dll,System.Drawing.dll
-    @mcs -out:$1.bin $1.$2
+#\t@mcs -out:$1.bin $1.$2 -r:System.Windows.Forms.dll,System.Drawing.dll
+\t@mcs -out:$1.bin $1.$2
 
 clean:
-    @rm -f $1.bin
+\t@rm -f $1.bin
 
 run: $1.bin
-    @mono $1.bin" >> Makefile
+\t@mono $1.bin" >> Makefile
     fi
 }
 
