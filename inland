@@ -17,33 +17,33 @@ EOF
     if [[ "$ext" == "cpp" ]]; then
 ###### CREATE BODY WHEN SOURCE FILE IS .CPP
         echo -e "
-all:
-\tcompile
-\trun
-
 compile:
-\tg++ $1.$2 -g -o $1.bin
+\tg++ $@ -g -o $1.bin
 
 clean:
 \t@rm -f $1.bin
 
 run:
-\t./$1.bin" >> Makefile
+\t./$1.bin
+
+all:
+\tcompile
+\trun" >> Makefile
         echo "Makefile created for $1.$2"
     elif [[ "$ext" == "cs" ]]; then
 ###### CREATE BODY WHEN SOURCE FILE IS .CS
         echo "
-all: run
-
 $1.bin: $1.$2
-#\t@mcs -out:$1.bin $1.$2 -r:System.Windows.Forms.dll,System.Drawing.dll
-\t@mcs -out:$1.bin $1.$2
+#\t@mcs -out:$1.bin $@ -r:System.Windows.Forms.dll,System.Drawing.dll
+\t@mcs -out:$1.bin $@
 
 clean:
 \t@rm -f $1.bin
 
 run: $1.bin
-\t@mono $1.bin" >> Makefile
+\t@mono $1.bin
+
+all: run" >> Makefile
     fi
 }
 
@@ -71,12 +71,14 @@ fi
 
 file=${1%.*}
 ext=${1##*.}
+full_param=$@
 
 
-read -p "Makefile for $ext, binary will be called $file.bin. Continue? (Y/n): "
+read -p "Makefile for $ext, binary will be called $file.bin.
+Treating $1 as containing the main method. Continue? (Y/n): "
 if [[ "$REPLY" == "" || "$REPLY" == "Y"|| "$REPLY" == "y" ]]; then
     echo -e "Confirmed. Generating..."
-    createMakefile $file $ext
+    createMakefile $file $ext $full_param
 else
     echo -e "Exiting..."
 fi
